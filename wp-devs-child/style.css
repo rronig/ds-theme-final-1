@@ -6,6 +6,10 @@
  Version:        1.0
 */
 body{
-    background-image: url("dark.png");
+    background-image: url("3167955.webp");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
     font-family: 'Poppins', sans-serif;
 }

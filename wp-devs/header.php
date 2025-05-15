@@ -5,6 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php wp_head(); ?>
+    <style>.top-bar{margin:10px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.5); /* semi-transparent white */
+    backdrop-filter: blur(10px);          /* blur behind the element */
+    -webkit-backdrop-filter: blur(10px);  /* Safari support */
+    border: 1px solid rgba(255, 255, 255, 0.8); /* subtle border for depth */
+    overflow: hidden;}</style>
 </head>
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
@@ -23,15 +30,8 @@
                         }
                         ?>
                     </div>
-                    <div class="searchbox">
-                        <?php get_search_form(); ?>
-                    </div>                    
-                </div>
-            </section>
-            <?php 
-            if( ! is_page( 'landing-page' )): ?>
-            <section class="menu-area">
-                <div class="container">
+                    <?php 
+                    if( ! is_page( 'landing-page' )): ?>
                     <nav class="main-menu">
                         <button class="check-button">
                             <div class="menu-icon">
@@ -41,8 +41,11 @@
                             </div>
                         </button>
                         <?php wp_nav_menu( array( 'theme_location' => 'wp_devs_main_menu', 'depth' => 2 )); ?>
-                    </nav>                    
+                    </nav>
+                    <?php endif; ?>
+                    <div class="searchbox">
+                        <?php get_search_form(); ?>
+                    </div>                    
                 </div>
             </section>
-            <?php endif; ?>
         </header>

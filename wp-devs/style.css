@@ -399,6 +399,7 @@ Tags: one-column, custom-menu, custom-logo, featured-images, translation-ready
 body{
     font-family: 'Poppins', sans-serif;
     font: normal, 21px/2.1rem, 'Poppins', sans-serif;
+    background-color: red;
 }
 h1{
     font-size: 66px;
@@ -788,12 +789,11 @@ img {
         display: block;
     }
 }
-
+ol{padding:0;}
 /* Footer */
 footer{ 
-    background: var( --wpdevs-deep-blue ); 
     padding: 15px 0; 
-    color: #FFFFFF; 
+    color: #ffffff; 
 }
 footer .container .row{
     align-items: center;
@@ -856,13 +856,26 @@ footer .container .row{
 }
 .blog article{
     margin-bottom: 20px;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.5); /* semi-transparent white */
+    backdrop-filter: blur(10px);          /* blur behind the element */
+    -webkit-backdrop-filter: blur(10px);  /* Safari support */
+    border: 1px solid rgba(255, 255, 255, 0.8); /* subtle border for depth */
+    overflow: hidden;
+    padding:25px;
 }
 .blog aside,
 .archive aside{
     padding: 25px;
-    background: var( --wpdevs-gray2 );
     height: 100%;
     width: 30%;
+    margin-bottom: 20px;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.5); /* semi-transparent white */
+    backdrop-filter: blur(10px);          /* blur behind the element */
+    -webkit-backdrop-filter: blur(10px);  /* Safari support */
+    border: 1px solid rgba(255, 255, 255, 0.8); /* subtle border for depth */
+    overflow: hidden;
 }
 @media screen and (max-width: 991px ) {
     .blog aside,
@@ -908,9 +921,38 @@ footer .container .row{
         width: 100%; 
     }
 }
+/* Positioning container */
+.comment-respond{
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.5); /* semi-transparent white */
+    backdrop-filter: blur(10px);          /* blur behind the element */
+    -webkit-backdrop-filter: blur(10px);  /* Safari support */
+    border: 1px solid rgba(255, 255, 255, 0.8); /* subtle border for depth */
+    overflow: hidden;
+    padding:25px;
+}
+#reply-title,
+#commentform {
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+#reply-title:hover,
+#commentform:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    transform: scale(1.01);
+}
+
 article{ 
     display: inline-block;  
     width: 100%; 
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.5); /* semi-transparent white */
+    backdrop-filter: blur(10px);          /* blur behind the element */
+    -webkit-backdrop-filter: blur(10px);  /* Safari support */
+    border: 1px solid rgba(255, 255, 255, 0.8); /* subtle border for depth */
+    overflow: hidden;
+    padding:30px;
+    margin-top: 15px;
 }
 article.post h1,
 .search h1,
@@ -987,7 +1029,6 @@ article.post h5{
 }
 .comments-area #reply-title{
     border-top: 1px solid #ebebeb;
-    padding: 20px 0 0;
 }
 
 /* Pagination */

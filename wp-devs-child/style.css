@@ -1,4 +1,11 @@
 /*
- Theme Name: WP Devs Child
- Template: wp-devs
+ Theme Name:     Art
+ Template:       wp-devs
+ Description:    A colorful child theme that displays only art posts.
+ Author:         Rron Gashi
+ Version:        1.0
 */
+body{
+    background-image: url("dark.png");
+    font-family: 'Poppins', sans-serif;
+}

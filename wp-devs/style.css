@@ -1,7 +1,7 @@
 /*
-Theme Name: DS Theme
+Theme Name: Main Theme
 Theme URI: https://shkolladigjitale.com/
-Author: Donika Pllana
+Author: Rron Gashi
 Author URI: https://shkolladigjitale.com/
 Description: This theme is for learning purposes only.
 Requires at least: 5.6
@@ -31,6 +31,9 @@ Tags: one-column, custom-menu, custom-logo, featured-images, translation-ready
  * 1. Correct the line height in all browsers.
  * 2. Prevent adjustments of font size after orientation changes in iOS.
  */
+* {
+  box-sizing: border-box;
+}
 
  html {
     line-height: 1.15; /* 1 */
@@ -399,7 +402,11 @@ Tags: one-column, custom-menu, custom-logo, featured-images, translation-ready
 body{
     font-family: 'Poppins', sans-serif;
     font: normal, 21px/2.1rem, 'Poppins', sans-serif;
-    background-color: red;
+    background-image: url("dsa.jpeg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
 }
 h1{
     font-size: 66px;
@@ -856,12 +863,10 @@ footer .container .row{
 }
 .blog article{
     margin-bottom: 20px;
-    border-radius: 50px;
     background: rgba(255, 255, 255, 0.5); /* semi-transparent white */
     backdrop-filter: blur(10px);          /* blur behind the element */
     -webkit-backdrop-filter: blur(10px);  /* Safari support */
     border: 1px solid rgba(255, 255, 255, 0.8); /* subtle border for depth */
-    overflow: hidden;
     padding:25px;
 }
 .blog aside,
@@ -870,12 +875,10 @@ footer .container .row{
     height: 100%;
     width: 30%;
     margin-bottom: 20px;
-    border-radius: 50px;
     background: rgba(255, 255, 255, 0.5); /* semi-transparent white */
     backdrop-filter: blur(10px);          /* blur behind the element */
     -webkit-backdrop-filter: blur(10px);  /* Safari support */
     border: 1px solid rgba(255, 255, 255, 0.8); /* subtle border for depth */
-    overflow: hidden;
 }
 @media screen and (max-width: 991px ) {
     .blog aside,
@@ -922,37 +925,50 @@ footer .container .row{
     }
 }
 /* Positioning container */
-.comment-respond{
-    border-radius: 50px;
+.comment-respond, .error-404{
     background: rgba(255, 255, 255, 0.5); /* semi-transparent white */
     backdrop-filter: blur(10px);          /* blur behind the element */
     -webkit-backdrop-filter: blur(10px);  /* Safari support */
     border: 1px solid rgba(255, 255, 255, 0.8); /* subtle border for depth */
-    overflow: hidden;
     padding:25px;
 }
-#reply-title,
-#commentform {
+article, #respond, .error-404 {
     transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
-#reply-title:hover,
-#commentform:hover {
+article:hover, #respond:hover, .error-404:hover {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
     transform: scale(1.01);
 }
-
-article{ 
-    display: inline-block;  
+.stratosfera{
     width: 100%; 
-    border-radius: 50px;
     background: rgba(255, 255, 255, 0.5); /* semi-transparent white */
     backdrop-filter: blur(10px);          /* blur behind the element */
     -webkit-backdrop-filter: blur(10px);  /* Safari support */
     border: 1px solid rgba(255, 255, 255, 0.8); /* subtle border for depth */
-    overflow: hidden;
+    padding:30px;
+}
+.kakao, footer{
+    width:100%;
+    padding:0;
+    margin:0;
+    clear: both;
+}
+#page{
+    width:100%;
+}
+article{ 
+    display: inline-block;  
+    width: 100%; 
+    background: rgba(255, 255, 255, 0.5); /* semi-transparent white */
+    backdrop-filter: blur(10px);          /* blur behind the element */
+    -webkit-backdrop-filter: blur(10px);  /* Safari support */
+    border: 1px solid rgba(255, 255, 255, 0.8); /* subtle border for depth */
     padding:30px;
     margin-top: 15px;
+    word-wrap: break-word;   /* Wrap long words */
+    overflow-wrap: break-word; /* Modern equivalent */
+    overflow: hidden;        /* Prevent content from spilling out */
 }
 article.post h1,
 .search h1,

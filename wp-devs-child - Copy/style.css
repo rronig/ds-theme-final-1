@@ -1,0 +1,27 @@
+/*
+ Theme Name:     Tech
+ Template:       wp-devs
+ Description:    A colorful child theme that displays only tech posts.
+ Author:         Rron Gashi
+ Version:        1.0
+*/
+body{
+    background-image: url("12.webp");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    font-family: 'Poppins', sans-serif;
+}
+.comment-respond, .error-404{
+    border-radius: 50px;
+}
+article{
+    border-radius: 50px;
+}
+.blog article{
+    border-radius: 50px;
+}
+.archive aside{
+    border-radius: 50px;
+}

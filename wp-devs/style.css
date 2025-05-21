@@ -10,7 +10,7 @@ Requires PHP: 8.0
 Version: 1.0
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Text Domain: wp-devs
+Text Domain: main-theme
 Tags: one-column, custom-menu, custom-logo, featured-images, translation-ready
 */
 
@@ -402,7 +402,7 @@ Tags: one-column, custom-menu, custom-logo, featured-images, translation-ready
 body{
     font-family: 'Poppins', sans-serif;
     font: normal, 21px/2.1rem, 'Poppins', sans-serif;
-    background-image: url("dsa.jpeg");
+    background-image: url("screenshot.png");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -869,6 +869,17 @@ footer .container .row{
     border: 1px solid rgba(255, 255, 255, 0.8); /* subtle border for depth */
     padding:25px;
 }
+.pages, .new, .old {
+    background: rgba(255, 255, 255, 0.5); /* semi-transparent white */
+    backdrop-filter: blur(10px);          /* blur behind the element */
+    -webkit-backdrop-filter: blur(10px);  /* Safari support */
+    border: 1px solid rgba(255, 255, 255, 0.8); /* subtle border for depth */
+    padding:5px;
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
 .blog aside,
 .archive aside{
     padding: 25px;

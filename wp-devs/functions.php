@@ -11,13 +11,11 @@ function wpdevs_load_scripts(){
 }
 add_action( 'wp_enqueue_scripts', 'wpdevs_load_scripts' );
 
-function wpdevs_config(){
-    register_nav_menus(
-        array(
-            'wp_devs_main_menu' => 'Main Menu',
-            'wp_devs_footer_menu' => 'Footer Menu'
-        )
-    );
+function wpdevs_config() {
+    register_nav_menus(array(
+        'wp_devs_main_menu'   => __('Main Menu', 'textdomain'),
+        'wp_devs_footer_menu' => __('Footer Menu', 'textdomain'),
+    ));
 
     $args = array(
         'height'    => 225,

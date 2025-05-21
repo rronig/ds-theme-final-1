@@ -12,6 +12,9 @@
     -webkit-backdrop-filter: blur(10px);  /* Safari support */
     border: 1px solid rgba(255, 255, 255, 0.8); /* subtle border for depth */
     overflow: hidden;}</style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
 </head>
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
@@ -19,7 +22,7 @@
         <header>
             <section class="top-bar">
                 <div class="container">
-                    <div class="logo">
+                    <div class="logo text-2xl font-bold text-gray-800">
                         <?php 
                         if( has_custom_logo() ){
                             the_custom_logo();

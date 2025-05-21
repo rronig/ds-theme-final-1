@@ -1,11 +1,10 @@
 <?php get_header(); ?>
 <?php 
-if ( ! is_child_theme() ) : 
+if ( ! is_child_theme() && get_header_image() ) : 
 ?>
-    <img src="<?php header_image(); ?>" 
-         height="<?php echo esc_attr( get_custom_header()->height ); ?>" 
-         width="<?php echo esc_attr( get_custom_header()->width ); ?>" 
-         alt="" />
+    <div class="custom-header-wrapper">
+        <img src="<?php header_image(); ?>" alt="Header Image">
+    </div>
 <?php 
 endif; 
 ?>

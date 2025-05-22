@@ -18,8 +18,8 @@ function wpdevs_config() {
     ));
 
     $args = array(
-        'height'    => 225,
-        'width'     => 1920
+        'height'    => 230,
+        'width'     => 3840
     );
     add_theme_support( 'custom-header', $args );
     add_theme_support( 'post-thumbnails' );

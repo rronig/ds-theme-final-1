@@ -3,15 +3,16 @@
 if ( ! is_child_theme() && get_header_image() ) : 
 ?>
     <div class="custom-header-wrapper">
-        <img src="<?php header_image(); ?>" alt="Header Image">
+        <img src="<?php echo get_header_image(); ?>" alt="Header Image" style="width: 100%;object-fit: fill;">
     </div>
+
 <?php 
 endif; 
 ?>
         <div id="content" class="site-content">
             <div id="primary" class="content-area">
                 <main id="main" class="site-main">
-                    <h1>Blog</h1>
+                    <h1>News</h1>
                     <div class="container">
                         <div class="blog-items">
                             <?php 

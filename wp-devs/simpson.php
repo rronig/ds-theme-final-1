@@ -4,366 +4,529 @@ Template Name: Simpson Page
 */
 ?>
 <!DOCTYPE html>
-<html <?php language_attributes(); ?>>
+<html lang="en">
 <head>
-    <meta charset="<?php bloginfo('charset'); ?>">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php wp_title('|', true, 'right'); ?></title>
-    <?php wp_head(); ?>
+    <title>Insight - Your Trusted News Source</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --wpdevs-light-blue: #2A92D3;
-            --wpdevs-deep-blue: #213C4D;
-            --wpdevs-black-blue: #001E32;
-            --wpdevs-yellow: #CFAF07;
-            --wpdevs-gray1: #7C7C7C;
-            --wpdevs-gray2: #F7F7F7;
-            --wpdevs-gray3: #DDDDDD;
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500;700&display=swap');
         
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f8fafc;
-            color: #1e293b;
+            font-family: 'Roboto', sans-serif;
         }
         
-        .glass-card {
-            background: rgba(255, 255, 255, 0.5);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.8);
+        .headline-font {
+            font-family: 'Playfair Display', serif;
         }
         
-        .hero-section {
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('<?php echo get_template_directory_uri(); ?>/assets/images/hero-bg.jpg') no-repeat center center;
-            background-size: cover;
+        .gradient-bg {
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
         }
         
-        .featured-post:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        .news-card:hover .news-image {
+            transform: scale(1.05);
+            transition: transform 0.3s ease;
         }
         
-        .menu-icon .bar {
-            transition: all 0.3s ease;
+        .news-image {
+            transition: transform 0.3s ease;
         }
         
-        .menu-open .bar:nth-child(1) {
-            transform: translateY(8px) rotate(45deg);
+        .breaking-news-ticker {
+            animation: ticker 30s linear infinite;
         }
         
-        .menu-open .bar:nth-child(2) {
-            opacity: 0;
+        @keyframes ticker {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
         }
         
-        .menu-open .bar:nth-child(3) {
-            transform: translateY(-8px) rotate(-45deg);
-        }
-        
-        .mobile-menu {
-            transition: all 0.3s ease;
-            max-height: 0;
-            overflow: hidden;
-        }
-        
-        .mobile-menu.open {
-            max-height: 500px;
+        .dropdown:hover .dropdown-menu {
+            display: block;
         }
     </style>
 </head>
-<body <?php body_class('min-h-screen flex flex-col'); ?>>
-    <?php wp_body_open(); ?>
-    
-    <!-- Top Navigation -->
-    <header class="sticky top-0 z-50">
-        <div class="glass-card py-4 px-6 shadow-sm">
-            <div class="container mx-auto flex justify-between items-center">
-                <!-- Logo -->
-                <div class="flex items-center">
-                    <?php if (has_custom_logo()) : ?>
-                        <?php the_custom_logo(); ?>
-                    <?php else : ?>
-                        <a href="<?php echo esc_url(home_url('/')); ?>" class="text-2xl font-bold text-gray-800">
-                            <?php bloginfo('name'); ?>
-                        </a>
-                    <?php endif; ?>
-                </div>
-                
-                <!-- Desktop Navigation -->
-                <nav class="hidden md:flex space-x-8">
-                    <?php
-                    wp_nav_menu(array(
-                        'theme_location' => 'primary',
-                        'container' => false,
-                        'items_wrap' => '%3$s',
-                        'fallback_cb' => false,
-                        //'walker' => new Custom_Walker_Nav_Menu()
-                    ));
-                    ?>
-                </nav>
-                
-                <!-- Search and Mobile Menu Button -->
-                <div class="flex items-center space-x-4">
-                    <div class="hidden md:block relative">
-                        <?php get_search_form(); ?>
-                    </div>
-                    
-                    <button id="menu-toggle" class="md:hidden focus:outline-none">
-                        <div class="menu-icon w-6">
-                            <div class="bar h-0.5 w-6 bg-gray-800 mb-1.5"></div>
-                            <div class="bar h-0.5 w-6 bg-gray-800 mb-1.5"></div>
-                            <div class="bar h-0.5 w-6 bg-gray-800"></div>
-                        </div>
-                    </button>
-                </div>
+<body class="bg-gray-50">
+    <!-- Top Bar -->
+    <div class="bg-black text-white text-sm py-1 px-4 flex justify-between items-center">
+        <div class="flex space-x-4">
+            <span><i class="fas fa-calendar-alt mr-1"></i> <span id="current-date"></span></span>
+            <span><i class="fas fa-clock mr-1"></i> <span id="current-time"></span></span>
+        </div>
+        <div class="flex space-x-4">
+            <a href="#" class="hover:text-blue-300"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="hover:text-blue-400"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="hover:text-red-500"><i class="fab fa-youtube"></i></a>
+            <a href="#" class="hover:text-pink-500"><i class="fab fa-instagram"></i></a>
+        </div>
+    </div>
+
+    <!-- Breaking News Ticker -->
+    <div class="bg-red-600 text-white py-2 px-4 overflow-hidden">
+        <div class="flex items-center">
+            <span class="font-bold mr-3 whitespace-nowrap">BREAKING NEWS:</span>
+            <div class="whitespace-nowrap breaking-news-ticker">
+                <span class="mr-8">Russia-Ukraine peace talks show progress as ceasefire negotiations continue</span>
+                <span class="mr-8">Stock markets rally as inflation fears ease globally</span>
+                <span class="mr-8">Major tech company announces revolutionary AI breakthrough</span>
+                <span>Climate change summit reaches historic agreement on emissions</span>
             </div>
-            
-            <!-- Mobile Navigation -->
-            <div id="mobile-menu" class="mobile-menu md:hidden bg-white">
-                <?php
-                wp_nav_menu(array(
-                    'theme_location' => 'primary',
-                    'container' => false,
-                    'menu_class' => 'px-2 pt-2 pb-4 space-y-1',
-                    'walker' => new Custom_Mobile_Walker_Nav_Menu()
-                ));
-                ?>
-                <div class="px-3 py-2">
-                    <?php get_search_form(); ?>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="gradient-bg text-white">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <h1 class="headline-font text-4xl font-bold">INSIGHT</h1>
+                    <p class="text-sm opacity-80">Your Window to the World</p>
+                </div>
+                <div class="w-full md:w-1/2">
+                    <div class="relative">
+                        <input type="text" placeholder="Search for news..." class="w-full py-2 px-4 rounded-full text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <button class="absolute right-0 top-0 h-full px-4 text-gray-600 hover:text-blue-600">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero-section text-white py-20 md:py-32">
-        <div class="container mx-auto px-6 text-center">
-            <h1 class="text-4xl md:text-6xl font-bold mb-6"><?php echo esc_html(get_theme_mod('home_hero_title', 'Welcome to ' . get_bloginfo('name'))); ?></h1>
-            <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto"><?php echo esc_html(get_theme_mod('home_hero_subtitle', 'Discover insightful articles, creative ideas, and inspiring stories from our community of writers.')); ?></p>
-            <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a href="<?php echo esc_url(get_theme_mod('home_hero_button1_link', '#')); ?>" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full transition duration-300">
-                    <?php echo esc_html(get_theme_mod('home_hero_button1_text', 'Start Reading')); ?>
-                </a>
-                <a href="<?php echo esc_url(get_theme_mod('home_hero_button2_link', '#')); ?>" class="bg-transparent hover:bg-white hover:text-blue-600 text-white font-bold py-3 px-8 border-2 border-white rounded-full transition duration-300">
-                    <?php echo esc_html(get_theme_mod('home_hero_button2_text', 'Subscribe')); ?>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Featured Posts -->
-    <section class="py-16 bg-gray-50">
-        <div class="container mx-auto px-6">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4 relative inline-block">
-                    <?php echo esc_html(get_theme_mod('featured_posts_title', 'Featured Posts')); ?>
-                    <span class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-12 h-1 bg-blue-600"></span>
-                </h2>
-                <p class="text-gray-600 max-w-2xl mx-auto"><?php echo esc_html(get_theme_mod('featured_posts_subtitle', 'Check out our most popular and trending articles')); ?></p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <?php
-                $featured_posts = new WP_Query(array(
-                    'posts_per_page' => 3,
-                    'meta_key' => 'is_featured',
-                    'meta_value' => '1'
-                ));
-                
-                if ($featured_posts->have_posts()) :
-                    while ($featured_posts->have_posts()) : $featured_posts->the_post();
-                        $categories = get_the_category();
-                        $category_name = !empty($categories) ? esc_html($categories[0]->name) : 'Uncategorized';
-                        $category_link = !empty($categories) ? esc_url(get_category_link($categories[0]->term_id)) : '#';
-                ?>
-                <div class="bg-white rounded-xl overflow-hidden shadow-md featured-post transition duration-300">
-                    <div class="h-48 overflow-hidden">
-                        <?php if (has_post_thumbnail()) : ?>
-                            <?php the_post_thumbnail('large', array('class' => 'w-full h-full object-cover')); ?>
-                        <?php else : ?>
-                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/default-thumbnail.jpg" alt="<?php the_title_attribute(); ?>" class="w-full h-full object-cover">
-                        <?php endif; ?>
-                    </div>
-                    <div class="p-6">
-                        <div class="flex items-center mb-2">
-                            <span class="text-sm text-gray-500"><?php echo get_the_date(); ?></span>
-                            <span class="mx-2 text-gray-400">•</span>
-                            <a href="<?php echo $category_link; ?>" class="text-sm text-blue-600"><?php echo $category_name; ?></a>
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center">
+                <div class="hidden md:flex space-x-1">
+                    <a href="#" class="py-4 px-3 font-medium hover:bg-blue-50 hover:text-blue-600">Home</a>
+                    
+                    <div class="dropdown relative">
+                        <button class="py-4 px-3 font-medium hover:bg-blue-50 hover:text-blue-600 flex items-center">
+                            World <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        </button>
+                        <div class="dropdown-menu absolute hidden bg-white shadow-lg rounded-md mt-1 w-48">
+                            <a href="#" class="block px-4 py-2 hover:bg-blue-50">Europe</a>
+                            <a href="#" class="block px-4 py-2 hover:bg-blue-50">Americas</a>
+                            <a href="#" class="block px-4 py-2 hover:bg-blue-50">Asia</a>
+                            <a href="#" class="block px-4 py-2 hover:bg-blue-50">Africa</a>
+                            <a href="#" class="block px-4 py-2 hover:bg-blue-50">Middle East</a>
                         </div>
-                        <h3 class="text-xl font-bold mb-3"><?php the_title(); ?></h3>
-                        <p class="text-gray-600 mb-4"><?php echo wp_trim_words(get_the_excerpt(), 20); ?></p>
-                        <a href="<?php the_permalink(); ?>" class="text-blue-600 font-medium hover:text-blue-800 inline-flex items-center">
-                            <?php _e('Read More', 'textdomain'); ?>
-                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                            </svg>
-                        </a>
+                    </div>
+                    
+                    <a href="#" class="py-4 px-3 font-medium hover:bg-blue-50 hover:text-blue-600">Politics</a>
+                    <a href="#" class="py-4 px-3 font-medium hover:bg-blue-50 hover:text-blue-600">Business</a>
+                    <a href="#" class="py-4 px-3 font-medium hover:bg-blue-50 hover:text-blue-600">Technology</a>
+                    <a href="#" class="py-4 px-3 font-medium hover:bg-blue-50 hover:text-blue-600">Science</a>
+                    <a href="#" class="py-4 px-3 font-medium hover:bg-blue-50 hover:text-blue-600">Health</a>
+                    <a href="#" class="py-4 px-3 font-medium hover:bg-blue-50 hover:text-blue-600">Entertainment</a>
+                    <a href="#" class="py-4 px-3 font-medium hover:bg-blue-50 hover:text-blue-600">Sports</a>
+                </div>
+                <button class="md:hidden py-4 px-3">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Featured Story -->
+        <div class="mb-12">
+            <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                <div class="md:flex">
+                    <div class="md:w-2/3">
+                        <div class="h-full overflow-hidden">
+                            <img src="https://source.unsplash.com/random/1200x600/?world" alt="Featured News" class="w-full h-full object-cover news-image">
+                        </div>
+                    </div>
+                    <div class="p-8 md:w-1/3">
+                        <div class="uppercase tracking-wide text-sm text-blue-600 font-semibold mb-1">World News</div>
+                        <h2 class="headline-font text-3xl font-bold text-gray-900 mb-4">Global Leaders Gather for Climate Summit Amid Rising Concerns</h2>
+                        <p class="mt-2 text-gray-600">World leaders are meeting in Geneva this week to address the growing climate crisis as new data shows record temperatures across multiple continents. The summit aims to establish binding agreements on carbon emissions.</p>
+                        <div class="mt-6 flex items-center">
+                            <div class="flex-shrink-0">
+                                <img class="h-10 w-10 rounded-full" src="https://source.unsplash.com/random/100x100/?reporter" alt="Reporter">
+                            </div>
+                            <div class="ml-3">
+                                <p class="text-sm font-medium text-gray-900">Sarah Johnson</p>
+                                <div class="flex space-x-1 text-sm text-gray-500">
+                                    <time datetime="2023-05-16">May 16, 2023</time>
+                                    <span aria-hidden="true">&middot;</span>
+                                    <span>5 min read</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-6">
+                            <button class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-300">
+                                Read Full Story
+                            </button>
+                        </div>
                     </div>
                 </div>
-                <?php
-                    endwhile;
-                    wp_reset_postdata();
-                else :
-                    echo '<p class="col-span-3 text-center">' . __('No featured posts found.', 'textdomain') . '</p>';
-                endif;
-                ?>
             </div>
+        </div>
+
+        <!-- News Grid -->
+        <div class="mb-12">
+            <h2 class="headline-font text-2xl font-bold mb-6 pb-2 border-b border-gray-200">Latest Updates</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- News Card 1 -->
+                <div class="news-card bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://source.unsplash.com/random/600x400/?politics" alt="News" class="w-full h-full object-cover news-image">
+                        <div class="absolute top-2 left-2 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded">BREAKING</div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex items-center text-xs text-gray-500 mb-2">
+                            <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded mr-2">Politics</span>
+                            <span>2 hours ago</span>
+                        </div>
+                        <h3 class="font-bold text-lg mb-2">Parliament Approves Controversial Reform Bill After Marathon Session</h3>
+                        <p class="text-gray-600 text-sm">The legislation passed with a narrow majority after intense debate that lasted through the night, sparking protests outside government buildings.</p>
+                        <div class="mt-4 flex justify-between items-center">
+                            <div class="flex items-center">
+                                <img src="https://source.unsplash.com/random/30x30/?reporter" alt="Reporter" class="w-6 h-6 rounded-full mr-2">
+                                <span class="text-xs text-gray-600">James Wilson</span>
+                            </div>
+                            <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">Read More →</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- News Card 2 -->
+                <div class="news-card bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://source.unsplash.com/random/600x400/?technology" alt="News" class="w-full h-full object-cover news-image">
+                    </div>
+                    <div class="p-4">
+                        <div class="flex items-center text-xs text-gray-500 mb-2">
+                            <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded mr-2">Technology</span>
+                            <span>5 hours ago</span>
+                        </div>
+                        <h3 class="font-bold text-lg mb-2">New AI Model Can Predict Weather Patterns With 95% Accuracy</h3>
+                        <p class="text-gray-600 text-sm">Researchers have developed an artificial intelligence system that outperforms traditional forecasting methods, potentially revolutionizing disaster preparedness.</p>
+                        <div class="mt-4 flex justify-between items-center">
+                            <div class="flex items-center">
+                                <img src="https://source.unsplash.com/random/30x30/?scientist" alt="Reporter" class="w-6 h-6 rounded-full mr-2">
+                                <span class="text-xs text-gray-600">Dr. Emily Chen</span>
+                            </div>
+                            <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">Read More →</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- News Card 3 -->
+                <div class="news-card bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://source.unsplash.com/random/600x400/?economy" alt="News" class="w-full h-full object-cover news-image">
+                    </div>
+                    <div class="p-4">
+                        <div class="flex items-center text-xs text-gray-500 mb-2">
+                            <span class="bg-green-100 text-green-800 px-2 py-1 rounded mr-2">Business</span>
+                            <span>8 hours ago</span>
+                        </div>
+                        <h3 class="font-bold text-lg mb-2">Central Banks Coordinate Interest Rate Cuts to Stimulate Global Economy</h3>
+                        <p class="text-gray-600 text-sm">In a rare synchronized move, major economies have announced reductions in borrowing costs to counter slowing growth and market volatility.</p>
+                        <div class="mt-4 flex justify-between items-center">
+                            <div class="flex items-center">
+                                <img src="https://source.unsplash.com/random/30x30/?journalist" alt="Reporter" class="w-6 h-6 rounded-full mr-2">
+                                <span class="text-xs text-gray-600">Michael Rodriguez</span>
+                            </div>
+                            <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">Read More →</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- More News Sections -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+            <!-- World News Section -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <div class="bg-blue-600 text-white px-4 py-3">
+                    <h3 class="font-bold flex items-center">
+                        <i class="fas fa-globe mr-2"></i> World News
+                    </h3>
+                </div>
+                <div class="p-4">
+                    <div class="border-b border-gray-100 pb-3 mb-3">
+                        <h4 class="font-semibold text-gray-800 hover:text-blue-600 cursor-pointer">UN Security Council to Hold Emergency Meeting on Middle East Tensions</h4>
+                        <p class="text-sm text-gray-600 mt-1">Diplomatic sources indicate growing concern over recent escalations in the region.</p>
+                    </div>
+                    <div class="border-b border-gray-100 pb-3 mb-3">
+                        <h4 class="font-semibold text-gray-800 hover:text-blue-600 cursor-pointer">Record Heatwave Sweeps Across Southern Europe</h4>
+                        <p class="text-sm text-gray-600 mt-1">Temperatures exceed 40°C in multiple countries, straining energy grids.</p>
+                    </div>
+                    <div class="border-b border-gray-100 pb-3 mb-3">
+                        <h4 class="font-semibold text-gray-800 hover:text-blue-600 cursor-pointer">African Union Announces New Trade Agreement</h4>
+                        <p class="text-sm text-gray-600 mt-1">The pact aims to boost intra-continental commerce by reducing tariffs.</p>
+                    </div>
+                    <div class="pt-2">
+                        <a href="#" class="text-blue-600 hover:text-blue-800 text-sm font-medium">View All World News →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Business News Section -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <div class="bg-green-600 text-white px-4 py-3">
+                    <h3 class="font-bold flex items-center">
+                        <i class="fas fa-chart-line mr-2"></i> Business & Finance
+                    </h3>
+                </div>
+                <div class="p-4">
+                    <div class="border-b border-gray-100 pb-3 mb-3">
+                        <h4 class="font-semibold text-gray-800 hover:text-blue-600 cursor-pointer">Tech Giant Reports Record Quarterly Profits</h4>
+                        <p class="text-sm text-gray-600 mt-1">Shares surge 8% in after-hours trading following earnings announcement.</p>
+                    </div>
+                    <div class="border-b border-gray-100 pb-3 mb-3">
+                        <h4 class="font-semibold text-gray-800 hover:text-blue-600 cursor-pointer">Cryptocurrency Markets Rebound After Recent Slump</h4>
+                        <p class="text-sm text-gray-600 mt-1">Bitcoin climbs back above $30,000 as investor sentiment improves.</p>
+                    </div>
+                    <div class="border-b border-gray-100 pb-3 mb-3">
+                        <h4 class="font-semibold text-gray-800 hover:text-blue-600 cursor-pointer">Automakers Invest Billions in Electric Vehicle Production</h4>
+                        <p class="text-sm text-gray-600 mt-1">New factories planned as demand for EVs continues to grow globally.</p>
+                    </div>
+                    <div class="pt-2">
+                        <a href="#" class="text-blue-600 hover:text-blue-800 text-sm font-medium">View All Business News →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Technology News Section -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <div class="bg-purple-600 text-white px-4 py-3">
+                    <h3 class="font-bold flex items-center">
+                        <i class="fas fa-microchip mr-2"></i> Technology
+                    </h3>
+                </div>
+                <div class="p-4">
+                    <div class="border-b border-gray-100 pb-3 mb-3">
+                        <h4 class="font-semibold text-gray-800 hover:text-blue-600 cursor-pointer">New Smartphone Features Breakthrough Camera Technology</h4>
+                        <p class="text-sm text-gray-600 mt-1">Low-light performance rivals professional DSLR cameras in early tests.</p>
+                    </div>
+                    <div class="border-b border-gray-100 pb-3 mb-3">
+                        <h4 class="font-semibold text-gray-800 hover:text-blue-600 cursor-pointer">Social Media Platform Announces Major Algorithm Changes</h4>
+                        <p class="text-sm text-gray-600 mt-1">Update aims to prioritize original content over reposted material.</p>
+                    </div>
+                    <div class="border-b border-gray-100 pb-3 mb-3">
+                        <h4 class="font-semibold text-gray-800 hover:text-blue-600 cursor-pointer">Cybersecurity Experts Warn of New Phishing Tactics</h4>
+                        <p class="text-sm text-gray-600 mt-1">Sophisticated attacks targeting corporate email systems on the rise.</p>
+                    </div>
+                    <div class="pt-2">
+                        <a href="#" class="text-blue-600 hover:text-blue-800 text-sm font-medium">View All Tech News →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Video Section -->
+        <div class="mb-12">
+            <h2 class="headline-font text-2xl font-bold mb-6 pb-2 border-b border-gray-200">Featured Videos</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Video 1 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300">
+                    <div class="relative pb-[56.25%] overflow-hidden">
+                        <img src="https://source.unsplash.com/random/600x400/?news" alt="Video" class="absolute w-full h-full object-cover">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <button class="bg-red-600 text-white rounded-full w-14 h-14 flex items-center justify-center hover:bg-red-700 transition duration-300">
+                                <i class="fas fa-play text-xl"></i>
+                            </button>
+                        </div>
+                        <div class="absolute bottom-2 left-2 bg-black bg-opacity-70 text-white text-xs px-2 py-1 rounded">3:45</div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-2">Exclusive: Inside the Refugee Camps at the Border</h3>
+                        <p class="text-gray-600 text-sm">Our correspondent reports from the ground on the humanitarian situation.</p>
+                        <div class="mt-3 flex justify-between items-center">
+                            <span class="text-xs text-gray-500">1.2M views • 2 days ago</span>
+                            <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">Watch Now →</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Video 2 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300">
+                    <div class="relative pb-[56.25%] overflow-hidden">
+                        <img src="https://source.unsplash.com/random/600x400/?interview" alt="Video" class="absolute w-full h-full object-cover">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <button class="bg-red-600 text-white rounded-full w-14 h-14 flex items-center justify-center hover:bg-red-700 transition duration-300">
+                                <i class="fas fa-play text-xl"></i>
+                            </button>
+                        </div>
+                        <div class="absolute bottom-2 left-2 bg-black bg-opacity-70 text-white text-xs px-2 py-1 rounded">8:12</div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-2">Interview: CEO Discusses Company's Future Plans</h3>
+                        <p class="text-gray-600 text-sm">The executive reveals upcoming products and expansion strategies.</p>
+                        <div class="mt-3 flex justify-between items-center">
+                            <span class="text-xs text-gray-500">856K views • 3 days ago</span>
+                            <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">Watch Now →</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Video 3 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300">
+                    <div class="relative pb-[56.25%] overflow-hidden">
+                        <img src="https://source.unsplash.com/random/600x400/?science" alt="Video" class="absolute w-full h-full object-cover">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <button class="bg-red-600 text-white rounded-full w-14 h-14 flex items-center justify-center hover:bg-red-700 transition duration-300">
+                                <i class="fas fa-play text-xl"></i>
+                            </button>
+                        </div>
+                        <div class="absolute bottom-2 left-2 bg-black bg-opacity-70 text-white text-xs px-2 py-1 rounded">5:30</div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-2">How New Medical Breakthrough Could Save Thousands</h3>
+                        <p class="text-gray-600 text-sm">Scientists explain the innovative treatment showing promising results.</p>
+                        <div class="mt-3 flex justify-between items-center">
+                            <span class="text-xs text-gray-500">1.5M views • 1 day ago</span>
+                            <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">Watch Now →</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Newsletter Subscription -->
+        <div class="bg-blue-50 rounded-xl p-8 mb-12">
+            <div class="max-w-3xl mx-auto text-center">
+                <h2 class="headline-font text-2xl font-bold mb-2">Stay Informed with Our Newsletter</h2>
+                <p class="text-gray-600 mb-6">Get the day's top stories delivered straight to your inbox every morning.</p>
+                <div class="flex flex-col sm:flex-row gap-2 max-w-md mx-auto">
+                    <input type="email" placeholder="Your email address" class="flex-grow px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <button class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-300 whitespace-nowrap">
+                        Subscribe
+                    </button>
+                </div>
+                <p class="text-xs text-gray-500 mt-3">We respect your privacy. Unsubscribe at any time.</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-12 pb-6">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+                <!-- Column 1 -->
+                <div>
+                    <h3 class="headline-font text-xl font-bold mb-4">INSIGHT</h3>
+                    <p class="text-gray-400 mb-4">Delivering accurate, unbiased news from around the globe since 1995.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <!-- Categories -->
+                <div>
+                    <h4 class="font-bold text-lg mb-4"><?php _e('Categories', 'textdomain'); ?></h4>
+                    <ul class="space-y-2">
+                        <?php
+                        $categories = get_categories(array(
+                            'orderby' => 'name',
+                            'number' => 5,
+                        ));
+                        foreach ($categories as $category) {
+                            echo '<li><a href="' . esc_url(get_category_link($category->term_id)) . '">' . esc_html($category->name) . '</a></li>';
+                        }
+                        ?>
+                    </ul>
+                </div>
+
+                <!-- Quick links-->
+                <div>
+                    <h4 class="font-bold text-lg mb-4"><?php _e('Quick Links', 'textdomain'); ?></h4>
+                    <ul class="space-y-2" >
+                        <?php
+                        wp_nav_menu(array(
+                            'theme_location' => 'wp_devs_footer_menu',
+                            'container'      => false,
+                            'menu_class'     => 'footer-menu',
+                            'depth'          => 1,
+                            'fallback_cb'    => false
+                        ));
+                        ?>
+                    </ul>
+                </div>
+
+                <!-- Column 4 -->
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Legal</h4>
+                    <ul class="space-y-2">
+                        <li><a href="http://localhost/wordpress/terms-of-service/" class="text-gray-400 hover:text-white">Terms of Service</a></li>
+                        <li><a href="http://localhost/wordpress/privacy-policy/" class="text-gray-400 hover:text-white">Privacy Policy</a></li>
+                        <li><a href="http://localhost/wordpress/cookie-policy/" class="text-gray-400 hover:text-white">Cookie Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">GDPR Compliance</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 pt-6">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-gray-400 text-sm mb-4 md:mb-0">© 2023 Insight News Network. All rights reserved.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white text-sm">Privacy Policy</a>
+                        <a href="#" class="text-gray-400 hover:text-white text-sm">Terms of Service</a>
+                        <a href="#" class="text-gray-400 hover:text-white text-sm">Sitemap</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Update current date and time
+        function updateDateTime() {
+            const now = new Date();
             
-            <div class="text-center mt-12">
-                <a href="<?php echo esc_url(get_permalink(get_option('page_for_posts'))); ?>" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full transition duration-300">
-                    <?php _e('View All Posts', 'textdomain'); ?>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Categories Section -->
-    <section class="py-16 bg-white">
-        <div class="container mx-auto px-6">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4 relative inline-block">
-                    <?php _e('Explore Categories', 'textdomain'); ?>
-                    <span class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-12 h-1 bg-blue-600"></span>
-                </h2>
-                <p class="text-gray-600 max-w-2xl mx-auto"><?php _e('Browse our content by category', 'textdomain'); ?></p>
-            </div>
+            // Format date
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('current-date').textContent = now.toLocaleDateString('en-US', options);
             
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-                <?php
-                $categories = get_categories(array(
-                    'orderby' => 'count',
-                    'order' => 'DESC',
-                    'number' => 6
-                ));
-                
-                $category_icons = array(
-                    'writing' => 'fas fa-pen-fancy',
-                    'technology' => 'fas fa-laptop-code',
-                    'travel' => 'fas fa-plane',
-                    'photography' => 'fas fa-camera',
-                    'food' => 'fas fa-utensils',
-                    'education' => 'fas fa-graduation-cap'
-                );
-                
-                $category_colors = array(
-                    'writing' => 'blue',
-                    'technology' => 'green',
-                    'travel' => 'yellow',
-                    'photography' => 'purple',
-                    'food' => 'red',
-                    'education' => 'indigo'
-                );
-                
-                if (!empty($categories)) :
-                    $i = 0;
-                    foreach ($categories as $category) :
-                        $slug = $category->slug;
-                        $icon = isset($category_icons[$slug]) ? $category_icons[$slug] : 'fas fa-folder';
-                        $color = isset($category_colors[$slug]) ? $category_colors[$slug] : 'gray';
-                ?>
-                <a href="<?php echo esc_url(get_category_link($category->term_id)); ?>" class="glass-card rounded-lg p-6 text-center hover:shadow-lg transition duration-300">
-                    <div class="w-16 h-16 mx-auto mb-4 bg-<?php echo $color; ?>-100 rounded-full flex items-center justify-center">
-                        <i class="<?php echo $icon; ?> text-<?php echo $color; ?>-600 text-2xl"></i>
-                    </div>
-                    <h3 class="font-bold mb-1"><?php echo esc_html($category->name); ?></h3>
-                    <p class="text-sm text-gray-600"><?php echo esc_html($category->count); ?> <?php _e('Articles', 'textdomain'); ?></p>
-                </a>
-                <?php
-                        $i++;
-                    endforeach;
-                else :
-                    echo '<p class="col-span-6 text-center">' . __('No categories found.', 'textdomain') . '</p>';
-                endif;
-                ?>
-            </div>
-        </div>
-    </section>
-
-<!-- Latest Posts -->
-<section class="py-16 bg-gray-50">
-    <div class="container mx-auto px-6">
-        <div class="text-center mb-12">
-            <h2 class="text-3xl md:text-4xl font-bold mb-4 relative inline-block">
-                <?php _e('Latest Posts', 'textdomain'); ?>
-                <span class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-12 h-1 bg-blue-600"></span>
-            </h2>
-            <p class="text-gray-600 max-w-2xl mx-auto"><?php _e('Our most recent articles and updates', 'textdomain'); ?></p>
-        </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <?php
-            $latest_posts = new WP_Query(array(
-                'posts_per_page' => 4,
-                'ignore_sticky_posts' => true
-            ));
-
-            if ($latest_posts->have_posts()) :
-                while ($latest_posts->have_posts()) : $latest_posts->the_post();
-                    $categories = get_the_category();
-                    $category_name = !empty($categories) ? esc_html($categories[0]->name) : 'Uncategorized';
-                    $category_link = !empty($categories) ? esc_url(get_category_link($categories[0]->term_id)) : '#';
-            ?>
-            <div class="bg-white rounded-xl overflow-hidden shadow-md flex flex-col md:flex-row">
-                <div class="md:w-1/3 h-48 md:h-auto">
-                    <?php if (has_post_thumbnail()) :
-                        the_post_thumbnail('medium', ['class' => 'w-full h-full object-cover']);
-                    else : ?>
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/default-thumbnail.jpg" alt="<?php the_title_attribute(); ?>" class="w-full h-full object-cover">
-                    <?php endif; ?>
-                </div>
-                <div class="p-6 md:w-2/3">
-                    <div class="flex items-center mb-2">
-                        <span class="text-sm text-gray-500"><?php echo get_the_date(); ?></span>
-                        <span class="mx-2 text-gray-400">•</span>
-                        <a href="<?php echo $category_link; ?>" class="text-sm text-blue-600"><?php echo $category_name; ?></a>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3"><?php the_title(); ?></h3>
-                    <p class="text-gray-600 mb-4"><?php echo wp_trim_words(get_the_excerpt(), 20); ?></p>
-                    <a href="<?php the_permalink(); ?>" class="text-blue-600 font-medium hover:text-blue-800 inline-flex items-center">
-                        <?php _e('Read More', 'textdomain'); ?>
-                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                        </svg>
-                    </a>
-                </div>
-            </div>
-            <?php endwhile;
-                wp_reset_postdata();
-            else :
-                echo '<p class="col-span-2 text-center">' . __('No posts found.', 'textdomain') . '</p>';
-            endif;
-            ?>
-        </div>
-
-        <div class="text-center mt-12">
-            <a href="<?php echo esc_url(get_permalink(get_option('page_for_posts'))); ?>" class="inline-block border-2 border-blue-600 hover:bg-blue-600 hover:text-white text-blue-600 font-bold py-3 px-8 rounded-full transition duration-300">
-                <?php _e('Load More', 'textdomain'); ?>
-            </a>
-        </div>
-    </div>
-</section>
-
-<!-- Newsletter Section -->
-<section class="py-16 bg-blue-600 text-white">
-    <div class="container mx-auto px-6 text-center">
-        <h2 class="text-3xl md:text-4xl font-bold mb-6"><?php _e('Subscribe to Our Newsletter', 'textdomain'); ?></h2>
-        <p class="text-xl mb-8 max-w-2xl mx-auto"><?php _e('Get the latest articles and updates delivered straight to your inbox.', 'textdomain'); ?></p>
-
-        <form class="max-w-md mx-auto flex flex-col sm:flex-row gap-4">
-            <input type="email" placeholder="<?php _e('Your email address', 'textdomain'); ?>" class="flex-grow px-4 py-3 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-300 text-gray-800">
-            <button type="submit" class="bg-white hover:bg-gray-100 text-blue-600 font-bold py-3 px-8 rounded-full transition duration-300">
-                <?php _e('Subscribe', 'textdomain'); ?>
-            </button>
-        </form>
-
-        <p class="text-sm mt-4 opacity-80"><?php _e('We respect your privacy. Unsubscribe at any time.', 'textdomain'); ?></p>
-    </div>
-</section>
-
-<!-- Footer -->
+            // Format time
+            let hours = now.getHours();
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? hours : 12; // the hour '0' should be '12'
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const seconds = now.getSeconds().toString().padStart(2, '0');
+            document.getElementById('current-time').textContent = `${hours}:${minutes}:${seconds} ${ampm}`;
+        }
+        
+        // Update immediately and then every second
+        updateDateTime();
+        setInterval(updateDateTime, 1000);
+        
+        // Mobile menu toggle functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuButton = document.querySelector('.md\\:hidden');
+            const navMenu = document.querySelector('.hidden.md\\:flex');
+            
+            if (mobileMenuButton && navMenu) {
+                mobileMenuButton.addEventListener('click', function() {
+                    navMenu.classList.toggle('hidden');
+                    navMenu.classList.toggle('flex');
+                    navMenu.classList.toggle('flex-col');
+                    navMenu.classList.toggle('absolute');
+                    navMenu.classList.toggle('bg-white');
+                    navMenu.classList.toggle('w-full');
+                    navMenu.classList.toggle('left-0');
+                    navMenu.classList.toggle('top-full');
+                    navMenu.classList.toggle('shadow-lg');
+                    navMenu.classList.toggle('p-4');
+                    navMenu.classList.toggle('space-y-2');
+                });
+            }
+        });
+    </script>
 </body>
 </html>

@@ -93,3 +93,33 @@ if ( ! function_exists( 'wp_body_open' ) ){
         do_action( 'wp_body_open' );
     }
 }
+function get_video_thumbnail($video_url, $post_id) {
+    $upload_dir = wp_upload_dir();
+    $video_path = str_replace(home_url('/'), ABSPATH, $video_url);
+
+    $thumbnail_path = $upload_dir['basedir'] . "/video-thumbs/thumb-{$post_id}.jpg";
+    $thumbnail_url = $upload_dir['baseurl'] . "/video-thumbs/thumb-{$post_id}.jpg";
+
+    if (!file_exists($thumbnail_path)) {
+        // Make sure video file exists locally
+        if (file_exists($video_path)) {
+            // Make sure the directory exists
+            if (!file_exists(dirname($thumbnail_path))) {
+                mkdir(dirname($thumbnail_path), 0755, true);
+            }
+
+            // Run ffmpeg command to grab frame at 2 seconds
+            $cmd = "ffmpeg -ss 00:00:02 -i " . escapeshellarg($video_path) . " -vframes 1 " . escapeshellarg($thumbnail_path) . " 2>&1";
+            exec($cmd, $output, $return_var);
+
+            if ($return_var !== 0) {
+                // FFmpeg failed, fallback to placeholder
+                return false;
+            }
+        } else {
+            return false; // video file missing
+        }
+    }
+    return $thumbnail_url;
+}
+?>

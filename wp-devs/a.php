@@ -33,31 +33,37 @@
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
             <!-- Main Content Column -->
             <div class="lg:col-span-8">
-                <!-- Time Filter (now functional) -->
+                <!-- Search Filters (static UI, not functional) -->
+                <div class="bg-white rounded-xl shadow-md p-4 mb-6">
+                    <div class="flex flex-wrap gap-2">
+                        <button class="search-filter active px-4 py-2 rounded-full text-sm font-medium transition-all">
+                            <i class="fas fa-globe mr-1"></i> All Results
+                        </button>
+                        <button class="search-filter px-4 py-2 rounded-full text-sm font-medium transition-all">
+                            <i class="fas fa-newspaper mr-1"></i> News
+                        </button>
+                        <button class="search-filter px-4 py-2 rounded-full text-sm font-medium transition-all">
+                            <i class="fas fa-image mr-1"></i> Images
+                        </button>
+                        <button class="search-filter px-4 py-2 rounded-full text-sm font-medium transition-all">
+                            <i class="fas fa-video mr-1"></i> Videos
+                        </button>
+                        <button class="search-filter px-4 py-2 rounded-full text-sm font-medium transition-all">
+                            <i class="fas fa-map-marker-alt mr-1"></i> Local
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Time Filter (static UI, not functional) -->
                 <div class="bg-white rounded-xl shadow-md p-4 mb-6">
                     <div class="flex flex-wrap items-center gap-4">
                         <span class="text-sm font-medium text-gray-700">Time:</span>
-                        <?php
-                        $filters = [
-                            '' => 'Any time',
-                            'hour' => 'Past hour',
-                            'day' => 'Past 24 hours',
-                            'week' => 'Past week',
-                            'month' => 'Past month',
-                            'year' => 'Past year',
-                        ];
-                        $current_time_filter = isset($_GET['time']) ? (string)$_GET['time'] : '';
-                        foreach ($filters as $key => $label) {
-                            $active = ($current_time_filter === $key || ($key === '' && $current_time_filter === '')) ? 'bg-blue-100 text-blue-700 font-semibold' : '';
-                            if (function_exists('add_query_arg') && function_exists('remove_query_arg') && function_exists('esc_url') && function_exists('esc_html')) {
-                                $url = ($key === '') ? remove_query_arg('time') : add_query_arg('time', $key);
-                                echo '<a href="' . esc_url($url) . '" class="text-sm px-3 py-1 rounded-full hover:bg-gray-100 ' . $active . '">' . esc_html($label) . '</a>';
-                            } else {
-                                // Fallback: just print label
-                                echo '<span class="text-sm px-3 py-1 rounded-full ' . $active . '">' . htmlspecialchars($label) . '</span>';
-                            }
-                        }
-                        ?>
+                        <button class="text-sm px-3 py-1 rounded-full hover:bg-gray-100">Any time</button>
+                        <button class="text-sm px-3 py-1 rounded-full hover:bg-gray-100">Past hour</button>
+                        <button class="text-sm px-3 py-1 rounded-full hover:bg-gray-100">Past 24 hours</button>
+                        <button class="text-sm px-3 py-1 rounded-full hover:bg-gray-100">Past week</button>
+                        <button class="text-sm px-3 py-1 rounded-full hover:bg-gray-100">Past month</button>
+                        <button class="text-sm px-3 py-1 rounded-full hover:bg-gray-100">Past year</button>
                     </div>
                 </div>
 
@@ -110,13 +116,78 @@
 
             <!-- Sidebar Column -->
             <aside class="lg:col-span-4">
+                <!-- Knowledge Panel (static) -->
+                <div class="bg-white rounded-xl shadow-md p-6 mb-8">
+                    <div class="flex items-start mb-4">
+                        <img src="https://source.unsplash.com/random/80x80/?ai" alt="AI" class="w-16 h-16 rounded-lg mr-4">
+                        <div>
+                            <h3 class="font-bold text-xl">Artificial Intelligence</h3>
+                            <p class="text-sm text-gray-600">Field of study</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 mb-4">Artificial intelligence is intelligence demonstrated by machines, as opposed to the natural intelligence displayed by animals including humans.</p>
+                    <div class="space-y-3 text-sm">
+                        <div>
+                            <span class="font-medium text-gray-700">Also known as:</span>
+                            <span class="text-gray-600 ml-2">AI</span>
+                        </div>
+                        <div>
+                            <span class="font-medium text-gray-700">Parent field:</span>
+                            <span class="text-gray-600 ml-2">Computer Science</span>
+                        </div>
+                        <div>
+                            <span class="font-medium text-gray-700">Key people:</span>
+                            <span class="text-gray-600 ml-2">Alan Turing, John McCarthy, Geoffrey Hinton</span>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-gray-100">
+                        <a href="#" class="text-blue-600 hover:underline text-sm font-medium">See more about AI <i class="fas fa-arrow-right ml-1"></i></a>
+                    </div>
+                </div>
+
+                <!-- Related Searches (static) -->
+                <div class="bg-white rounded-xl shadow-md p-6 mb-8">
+                    <h3 class="font-bold text-xl mb-4">Related searches</h3>
+                    <div class="space-y-3">
+                        <a href="#" class="flex items-center text-gray-700 hover:text-blue-600">
+                            <i class="fas fa-search text-gray-400 mr-3 w-5"></i>
+                            <span>Artificial intelligence examples</span>
+                        </a>
+                        <a href="#" class="flex items-center text-gray-700 hover:text-blue-600">
+                            <i class="fas fa-search text-gray-400 mr-3 w-5"></i>
+                            <span>Artificial intelligence vs machine learning</span>
+                        </a>
+                        <a href="#" class="flex items-center text-gray-700 hover:text-blue-600">
+                            <i class="fas fa-search text-gray-400 mr-3 w-5"></i>
+                            <span>Artificial intelligence companies</span>
+                        </a>
+                        <a href="#" class="flex items-center text-gray-700 hover:text-blue-600">
+                            <i class="fas fa-search text-gray-400 mr-3 w-5"></i>
+                            <span>Artificial intelligence in healthcare</span>
+                        </a>
+                        <a href="#" class="flex items-center text-gray-700 hover:text-blue-600">
+                            <i class="fas fa-search text-gray-400 mr-3 w-5"></i>
+                            <span>Artificial intelligence courses</span>
+                        </a>
+                        <a href="#" class="flex items-center text-gray-700 hover:text-blue-600">
+                            <i class="fas fa-search text-gray-400 mr-3 w-5"></i>
+                            <span>Artificial intelligence definition</span>
+                        </a>
+                        <a href="#" class="flex items-center text-gray-700 hover:text-blue-600">
+                            <i class="fas fa-search text-gray-400 mr-3 w-5"></i>
+                            <span>Artificial intelligence stocks</span>
+                        </a>
+                    </div>
+                </div>
+
                 <!-- Trending Now (dynamic) -->
                 <div class="bg-white rounded-xl shadow-md p-6">
-                    <h3 class="font-bold text-xl mb-4">Trending Posts</h3>
+                    <h3 class="font-bold text-xl mb-4">Trending in Technology</h3>
                     <div class="space-y-4">
                         <?php
                         $trending = new WP_Query([
-                            'posts_per_page' => 4,
+                            'category_name' => 'technology',
+                            'posts_per_page' => 3,
                             'orderby' => 'comment_count',
                             'order' => 'DESC'
                         ]);
@@ -126,7 +197,6 @@
                                 <div>
                                     <span class="text-xs font-semibold px-2 py-1 bg-gray-100 text-gray-800 rounded-full">#<?php echo $trend_count; ?></span>
                                     <h4 class="font-medium text-gray-900 hover:text-blue-600 mt-1"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h4>
-                                    <p class="text-gray-700 text-sm mt-1"><?php echo get_the_excerpt(); ?></p>
                                 </div>
                         <?php $trend_count++; endwhile; wp_reset_postdata(); else: ?>
                             <p>No trending posts found.</p>
@@ -212,48 +282,3 @@
         });
     </script>
     <?php get_footer(); ?>
-
-<?php
-// --- Time Filter Logic for Search ---
-add_action('pre_get_posts', function($query) {
-    if ($query->is_main_query() && !is_admin() && is_search() && isset($_GET['time']) && $_GET['time']) {
-        $now = current_time('timestamp');
-        $time_filter = $_GET['time'];
-        $date_query = [];
-        switch ($time_filter) {
-            case 'hour':
-                $date_query[] = [
-                    'after' => date('Y-m-d H:i:s', $now - HOUR_IN_SECONDS),
-                    'inclusive' => true,
-                    'column' => 'post_date',
-                ]; break;
-            case 'day':
-                $date_query[] = [
-                    'after' => date('Y-m-d H:i:s', $now - DAY_IN_SECONDS),
-                    'inclusive' => true,
-                    'column' => 'post_date',
-                ]; break;
-            case 'week':
-                $date_query[] = [
-                    'after' => date('Y-m-d H:i:s', $now - WEEK_IN_SECONDS),
-                    'inclusive' => true,
-                    'column' => 'post_date',
-                ]; break;
-            case 'month':
-                $date_query[] = [
-                    'after' => date('Y-m-d H:i:s', strtotime('-1 month', $now)),
-                    'inclusive' => true,
-                    'column' => 'post_date',
-                ]; break;
-            case 'year':
-                $date_query[] = [
-                    'after' => date('Y-m-d H:i:s', strtotime('-1 year', $now)),
-                    'inclusive' => true,
-                    'column' => 'post_date',
-                ]; break;
-        }
-        if (!empty($date_query)) {
-            $query->set('date_query', $date_query);
-        }
-    }
-});

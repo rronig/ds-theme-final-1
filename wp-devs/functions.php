@@ -122,4 +122,38 @@ function get_video_thumbnail($video_url, $post_id) {
     }
     return $thumbnail_url;
 }
+// Theme switching logic for category-based child themes
+function map_category_to_theme($category_slug) {
+    $theme_map = array(
+        'recipe'   => 'food',
+        'food'     => 'food',
+        'cuisine'  => 'food',
+        'art'      => 'art',
+        'tech'     => 'tech',
+        'technology' => 'tech',
+    );
+    return $theme_map[$category_slug] ?? null;
+}
+
+function category_based_theme($theme) {
+    if (is_category()) {
+        $queried_category = get_queried_object();
+    } elseif (is_single()) {
+        $categories = get_the_category();
+        $queried_category = !empty($categories) ? $categories[0] : null;
+    } else {
+        $queried_category = null;
+    }
+
+    if ($queried_category && !is_wp_error($queried_category)) {
+        $slug = $queried_category->slug;
+        $mapped_theme = map_category_to_theme($slug);
+        if ($mapped_theme && wp_get_theme($mapped_theme)->exists()) {
+            return $mapped_theme;
+        }
+    }
+    return $theme;
+}
+add_filter('template', 'category_based_theme');
+add_filter('stylesheet', 'category_based_theme');
 ?>

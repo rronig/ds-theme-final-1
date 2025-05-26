@@ -1,136 +1,9 @@
-<?php
-/*
-Template Name: Simpson Page
-*/
+<?php 
+// Template Name: Home Page
+// This template is used for the homepage of the site.
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Insight - Your Trusted News Source</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500;700&display=swap');
-        
-        body {
-            font-family: 'Roboto', sans-serif;
-        }
-        
-        .headline-font {
-            font-family: 'Playfair Display', serif;
-        }
-        
-        .gradient-bg {
-            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
-        }
-        
-        .news-card:hover .news-image {
-            transform: scale(1.05);
-            transition: transform 0.3s ease;
-        }
-        
-        .news-image {
-            transition: transform 0.3s ease;
-        }
-        
-        .breaking-news-ticker {
-            animation: ticker 30s linear infinite;
-        }
-        
-        @keyframes ticker {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
-        }
-        
-        .dropdown:hover .dropdown-menu {
-            display: block;
-        }
-    </style>
-</head>
-<body class="bg-gray-50">
-    <!-- Top Bar -->
-    <div class="bg-black text-white text-sm py-1 px-4 flex justify-between items-center">
-        <div class="flex space-x-4">
-            <span><i class="fas fa-calendar-alt mr-1"></i> <span id="current-date"></span></span>
-            <span><i class="fas fa-clock mr-1"></i> <span id="current-time"></span></span>
-        </div>
-        <div class="flex space-x-4">
-            <a href="#" class="hover:text-blue-300"><i class="fab fa-facebook-f"></i></a>
-            <a href="#" class="hover:text-blue-400"><i class="fab fa-twitter"></i></a>
-            <a href="#" class="hover:text-red-500"><i class="fab fa-youtube"></i></a>
-            <a href="#" class="hover:text-pink-500"><i class="fab fa-instagram"></i></a>
-        </div>
-    </div>
 
-    <!-- Breaking News Ticker -->
-    <div class="bg-red-600 text-white py-2 px-4 overflow-hidden">
-        <div class="flex items-center">
-            <span class="font-bold mr-3 whitespace-nowrap">BREAKING NEWS:</span>
-            <div class="whitespace-nowrap breaking-news-ticker">
-                <span class="mr-8">Russia-Ukraine peace talks show progress as ceasefire negotiations continue</span>
-                <span class="mr-8">Stock markets rally as inflation fears ease globally</span>
-                <span class="mr-8">Major tech company announces revolutionary AI breakthrough</span>
-                <span>Climate change summit reaches historic agreement on emissions</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- Header -->
-    <header class="gradient-bg text-white">
-        <div class="container mx-auto px-4 py-6">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <div class="mb-4 md:mb-0">
-                    <h1 class="headline-font text-4xl font-bold">INSIGHT</h1>
-                    <p class="text-sm opacity-80">Your Window to the World</p>
-                </div>
-                <div class="w-full md:w-1/2">
-                    <div class="relative">
-                        <input type="text" placeholder="Search for news..." class="w-full py-2 px-4 rounded-full text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        <button class="absolute right-0 top-0 h-full px-4 text-gray-600 hover:text-blue-600">
-                            <i class="fas fa-search"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- Navigation -->
-    <nav class="bg-white shadow-md sticky top-0 z-50">
-        <div class="container mx-auto px-4">
-            <div class="flex justify-between items-center">
-                <div class="hidden md:flex space-x-1">
-                    <a href="#" class="py-4 px-3 font-medium hover:bg-blue-50 hover:text-blue-600">Home</a>
-                    
-                    <div class="dropdown relative">
-                        <button class="py-4 px-3 font-medium hover:bg-blue-50 hover:text-blue-600 flex items-center">
-                            World <i class="fas fa-chevron-down ml-1 text-xs"></i>
-                        </button>
-                        <div class="dropdown-menu absolute hidden bg-white shadow-lg rounded-md mt-1 w-48">
-                            <a href="#" class="block px-4 py-2 hover:bg-blue-50">Europe</a>
-                            <a href="#" class="block px-4 py-2 hover:bg-blue-50">Americas</a>
-                            <a href="#" class="block px-4 py-2 hover:bg-blue-50">Asia</a>
-                            <a href="#" class="block px-4 py-2 hover:bg-blue-50">Africa</a>
-                            <a href="#" class="block px-4 py-2 hover:bg-blue-50">Middle East</a>
-                        </div>
-                    </div>
-                    
-                    <a href="#" class="py-4 px-3 font-medium hover:bg-blue-50 hover:text-blue-600">Politics</a>
-                    <a href="#" class="py-4 px-3 font-medium hover:bg-blue-50 hover:text-blue-600">Business</a>
-                    <a href="#" class="py-4 px-3 font-medium hover:bg-blue-50 hover:text-blue-600">Technology</a>
-                    <a href="#" class="py-4 px-3 font-medium hover:bg-blue-50 hover:text-blue-600">Science</a>
-                    <a href="#" class="py-4 px-3 font-medium hover:bg-blue-50 hover:text-blue-600">Health</a>
-                    <a href="#" class="py-4 px-3 font-medium hover:bg-blue-50 hover:text-blue-600">Entertainment</a>
-                    <a href="#" class="py-4 px-3 font-medium hover:bg-blue-50 hover:text-blue-600">Sports</a>
-                </div>
-                <button class="md:hidden py-4 px-3">
-                    <i class="fas fa-bars"></i>
-                </button>
-            </div>
-        </div>
-    </nav>
+<?php get_header(); ?>
 
     <!-- Main Content -->
     <main class="container mx-auto px-4 py-8">
@@ -394,7 +267,11 @@ Template Name: Simpson Page
     ?>
                 <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300">
                     <div class="relative pb-[56.25%] overflow-hidden">
-                        <img src="<?php echo esc_url($thumb_url); ?>" alt="<?php the_title_attribute(); ?>" class="absolute w-full h-full object-cover">
+                        <?php if (has_post_thumbnail()) : ?>
+                            <?php the_post_thumbnail('large', ['class' => 'absolute w-full h-full object-cover']); ?>
+                        <?php else : ?>
+                            <img src="https://source.unsplash.com/random/1200x600/?world" class="w-full h-full object-cover news-image" alt="Fallback Image">
+                        <?php endif; ?>
                         <div class="absolute inset-0 flex items-center justify-center">
                             <a href="<?php the_permalink(); ?>" class="bg-red-600 text-white rounded-full w-14 h-14 flex items-center justify-center hover:bg-red-700 transition duration-300" aria-label="Watch <?php the_title_attribute(); ?>">
                                 <i class="fas fa-play text-xl"></i>
@@ -429,140 +306,7 @@ Template Name: Simpson Page
 
 
 
-        <!-- Newsletter Subscription -->
-        <div class="bg-blue-50 rounded-xl p-8 mb-12">
-            <div class="max-w-3xl mx-auto text-center">
-                <h2 class="headline-font text-2xl font-bold mb-2">Stay Informed with Our Newsletter</h2>
-                <p class="text-gray-600 mb-6">Get the day's top stories delivered straight to your inbox every morning.</p>
-                <div class="flex flex-col sm:flex-row gap-2 max-w-md mx-auto">
-                    <input type="email" placeholder="Your email address" class="flex-grow px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    <button class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-300 whitespace-nowrap">
-                        Subscribe
-                    </button>
-                </div>
-                <p class="text-xs text-gray-500 mt-3">We respect your privacy. Unsubscribe at any time.</p>
-            </div>
-        </div>
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-white pt-12 pb-6">
-        <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
-                <!-- Column 1 -->
-                <div>
-                    <h3 class="headline-font text-xl font-bold mb-4">INSIGHT</h3>
-                    <p class="text-gray-400 mb-4">Delivering accurate, unbiased news from around the globe since 1995.</p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-
-                <!-- Categories -->
-                <div>
-                    <h4 class="font-bold text-lg mb-4"><?php _e('Categories', 'textdomain'); ?></h4>
-                    <ul class="space-y-2">
-                        <?php
-                        $categories = get_categories(array(
-                            'orderby' => 'name',
-                            'number' => 5,
-                        ));
-                        foreach ($categories as $category) {
-                            echo '<li><a href="' . esc_url(get_category_link($category->term_id)) . '">' . esc_html($category->name) . '</a></li>';
-                        }
-                        ?>
-                    </ul>
-                </div>
-
-                <!-- Quick links-->
-                <div>
-                    <h4 class="font-bold text-lg mb-4"><?php _e('Quick Links', 'textdomain'); ?></h4>
-                    <ul class="space-y-2" >
-                        <?php
-                        wp_nav_menu(array(
-                            'theme_location' => 'wp_devs_footer_menu',
-                            'container'      => false,
-                            'menu_class'     => 'footer-menu',
-                            'depth'          => 1,
-                            'fallback_cb'    => false
-                        ));
-                        ?>
-                    </ul>
-                </div>
-
-                <!-- Column 4 -->
-                <div>
-                    <h4 class="font-bold text-lg mb-4">Legal</h4>
-                    <ul class="space-y-2">
-                        <li><a href="http://localhost/wordpress/terms-of-service/" class="text-gray-400 hover:text-white">Terms of Service</a></li>
-                        <li><a href="http://localhost/wordpress/privacy-policy/" class="text-gray-400 hover:text-white">Privacy Policy</a></li>
-                        <li><a href="http://localhost/wordpress/cookie-policy/" class="text-gray-400 hover:text-white">Cookie Policy</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white">GDPR Compliance</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="border-t border-gray-800 pt-6">
-                <div class="flex flex-col md:flex-row justify-between items-center">
-                    <p class="text-gray-400 text-sm mb-4 md:mb-0">© 2023 Insight News Network. All rights reserved.</p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-white text-sm">Privacy Policy</a>
-                        <a href="#" class="text-gray-400 hover:text-white text-sm">Terms of Service</a>
-                        <a href="#" class="text-gray-400 hover:text-white text-sm">Sitemap</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        // Update current date and time
-        function updateDateTime() {
-            const now = new Date();
-            
-            // Format date
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            document.getElementById('current-date').textContent = now.toLocaleDateString('en-US', options);
-            
-            // Format time
-            let hours = now.getHours();
-            const ampm = hours >= 12 ? 'PM' : 'AM';
-            hours = hours % 12;
-            hours = hours ? hours : 12; // the hour '0' should be '12'
-            const minutes = now.getMinutes().toString().padStart(2, '0');
-            const seconds = now.getSeconds().toString().padStart(2, '0');
-            document.getElementById('current-time').textContent = `${hours}:${minutes}:${seconds} ${ampm}`;
-        }
-        
-        // Update immediately and then every second
-        updateDateTime();
-        setInterval(updateDateTime, 1000);
-        
-        // Mobile menu toggle functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            const mobileMenuButton = document.querySelector('.md\\:hidden');
-            const navMenu = document.querySelector('.hidden.md\\:flex');
-            
-            if (mobileMenuButton && navMenu) {
-                mobileMenuButton.addEventListener('click', function() {
-                    navMenu.classList.toggle('hidden');
-                    navMenu.classList.toggle('flex');
-                    navMenu.classList.toggle('flex-col');
-                    navMenu.classList.toggle('absolute');
-                    navMenu.classList.toggle('bg-white');
-                    navMenu.classList.toggle('w-full');
-                    navMenu.classList.toggle('left-0');
-                    navMenu.classList.toggle('top-full');
-                    navMenu.classList.toggle('shadow-lg');
-                    navMenu.classList.toggle('p-4');
-                    navMenu.classList.toggle('space-y-2');
-                });
-            }
-        });
-    </script>
-</body>
-</html>
+    <?php get_footer(); ?>

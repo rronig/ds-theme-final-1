@@ -15,5 +15,16 @@ function filter_main_query_by_category($query) {
     }
 }
 add_action('pre_get_posts', 'filter_main_query_by_category');
-
+function asda(){
+    foreach (get_categories() as $category) : 
+        $category_name = $category->name;
+        $category_slug = $category->slug;
+        if ($category_name === 'Uncategorized' || $category_name === '') continue;
+        if (strtolower($category_name) !== 'tech' && strtolower($category_name) !== 'technology') continue;
+        $category_link = esc_url(get_category_link($category->term_id));
+?>
+    <a href="<?php echo $category_link; ?>" class="py-4 px-3 font-medium hover:bg-blue-50 hover:text-blue-600">
+    <?php echo esc_html($category_name); ?>
+    </a>
+<?php endforeach; }
 ?>

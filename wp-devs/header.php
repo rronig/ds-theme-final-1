@@ -56,6 +56,8 @@
             background-color: #2563eb;
             color: white;
         }
+        .sasa{
+  background-image: url('<?php echo esc_url( get_header_image() ); ?>');background-position: center;}
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -105,7 +107,7 @@
         </div>
 
     <!-- Header -->
-    <header class="gradient-bg text-white">
+    <header class="sasa text-white">
         <div class="container mx-auto px-4 py-6">
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <div class="mb-4 md:mb-0">
@@ -132,18 +134,7 @@
             <div class="flex justify-between items-center">
                 <div class="hidden md:flex space-x-1">
                     <a href="<?php echo esc_url(home_url('/')); ?>" class="py-4 px-3 font-medium hover:bg-blue-50 hover:text-blue-600">Home</a>
-                    <?php 
-                    foreach (get_categories() as $category) : 
-                        $category_name = $category->name;
-                        $category_slug = $category->slug;
-                        if ($category_name === 'Uncategorized' || $category_name === '') continue;
-                        $theme_name = function_exists('map_category_to_theme') ? map_category_to_theme($category_slug) : '';
-                        $category_link = esc_url(get_category_link($category->term_id));
-                    ?>
-                        <a href="<?php echo $category_link; ?>" class="py-4 px-3 font-medium hover:bg-blue-50 hover:text-blue-600">
-                        <?php echo esc_html($category_name); ?>
-                        </a>
-                    <?php endforeach; ?>
+                    <?php asda() ?>
                     <a href="<?php echo esc_url(home_url('/news')); ?>" class="py-4 px-3 font-medium hover:bg-blue-50 hover:text-blue-600">All News</a>
                 </div>
                 <button class="md:hidden py-4 px-3">

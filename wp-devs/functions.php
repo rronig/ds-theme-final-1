@@ -156,4 +156,27 @@ function category_based_theme($theme) {
 }
 add_filter('template', 'category_based_theme');
 add_filter('stylesheet', 'category_based_theme');
+function yourtheme_enqueue_styles() {
+    wp_enqueue_style('yourtheme-style', get_stylesheet_uri());
+    wp_enqueue_style('wp-block-library'); // Enables block editor styles
+}
+add_action('wp_enqueue_scripts', 'yourtheme_enqueue_styles');
+
+add_theme_support('wp-block-styles'); // Enables block styling support
+
 ?>
+<?php 
+// Only define asda() if it doesn't already exist and this is the parent theme (not a child theme)
+if ( ! function_exists('asda') && get_template() === get_stylesheet() ) {
+function asda(){
+    foreach (get_categories() as $category) : 
+        $category_name = $category->name;
+        $category_slug = $category->slug;
+        if ($category_name === 'Uncategorized' || $category_name === '') continue;
+        $category_link = esc_url(get_category_link($category->term_id));
+?>
+    <a href="<?php echo $category_link; ?>" class="py-4 px-3 font-medium hover:bg-blue-50 hover:text-blue-600">
+    <?php echo esc_html($category_name); ?>
+    </a>
+<?php endforeach; }
+}

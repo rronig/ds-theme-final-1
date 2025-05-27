@@ -1,14 +1,4 @@
 <?php get_header(); ?>
-<?php 
-if ( ! is_child_theme() && get_header_image() ) : 
-?>
-    <div class="custom-header-wrapper">
-        <img src="<?php echo get_header_image(); ?>" alt="Header Image" style="width: 100%;object-fit: fill;">
-    </div>
-
-<?php 
-endif; 
-?>
 <!-- Main Content -->
     <main class="container mx-auto px-4 py-8">
         <!-- Page Header -->
@@ -24,11 +14,13 @@ endif;
         <!-- News Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
             <?php
+            $paged = get_query_var('paged') ? get_query_var('paged') : 1;
             $news_query = new WP_Query([
                 'posts_per_page' => 6,
                 'post_status' => 'publish',
                 'orderby' => 'date',
-                'order' => 'DESC'
+                'order' => 'DESC',
+                'paged' => $paged
             ]);
             if ($news_query->have_posts()):
                 while ($news_query->have_posts()): $news_query->the_post();
@@ -71,19 +63,48 @@ endif;
         <!-- Pagination -->
         <div class="flex justify-center mb-12">
             <?php
-            global $wp_query;
             $big = 999999999;
-            echo paginate_links(array(
+            $pagination = paginate_links(array(
                 'base' => str_replace($big, '%#%', esc_url(get_pagenum_link($big))),
                 'format' => '?paged=%#%',
-                'current' => max(1, get_query_var('paged')),
+                'current' => $paged,
                 'total' => $news_query->max_num_pages,
                 'prev_text' => __('Previous'),
                 'next_text' => __('Next'),
-                'type' => 'list',
+                'type' => 'array',
+                'end_size' => 1,
+                'mid_size' => 1,
             ));
+            if ($pagination) {
+                echo '<ul class="pagination flex space-x-2">';
+                foreach ($pagination as $page) {
+                    if (strpos($page, 'current') !== false) {
+                        $page = str_replace('page-numbers current', 'page-numbers current bg-blue-600 text-white rounded px-4 py-2', $page);
+                    } else {
+                        $page = str_replace('page-numbers', 'page-numbers bg-white text-blue-600 border border-blue-600 rounded px-4 py-2 hover:bg-blue-600 hover:text-white transition', $page);
+                    }
+                    echo '<li>' . $page . '</li>';
+                }
+                echo '</ul>';
+            }
             ?>
         </div>
+        <style>
+        .pagination .page-numbers {
+            font-weight: 500;
+            margin: 0 2px;
+            transition: background 0.2s, color 0.2s;
+        }
+        .pagination .page-numbers.current {
+            background: #2563eb;
+            color: #fff;
+            border: none;
+        }
+        .pagination .page-numbers:hover:not(.current) {
+            background: #2563eb;
+            color: #fff;
+        }
+        </style>
 
         <!-- Newsletter Subscription -->
         <div class="bg-blue-50 rounded-xl p-8 mb-12">

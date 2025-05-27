@@ -80,21 +80,6 @@
                 </div>
             </div>
             <?php endif; ?>
-            <!-- Author Bio -->
-            <div class="bg-white rounded-xl shadow-md p-6 mb-8">
-                <div class="flex items-center mb-4">
-                    <?php echo get_avatar(get_the_author_meta('ID'), 80, '', 'Author', ['class' => 'w-16 h-16 rounded-full mr-4']); ?>
-                    <div>
-                        <h3 class="font-bold text-xl"><?php the_author(); ?></h3>
-                        <p class="text-gray-600"><?php the_author_meta('description'); ?></p>
-                    </div>
-                </div>
-                <div class="flex space-x-4 mt-4">
-                    <?php if(get_the_author_meta('twitter')): ?><a href="<?php echo esc_url(get_the_author_meta('twitter')); ?>" class="text-gray-500 hover:text-blue-600"><i class="fab fa-twitter"></i></a><?php endif; ?>
-                    <?php if(get_the_author_meta('linkedin')): ?><a href="<?php echo esc_url(get_the_author_meta('linkedin')); ?>" class="text-gray-500 hover:text-blue-800"><i class="fab fa-linkedin"></i></a><?php endif; ?>
-                    <?php if(get_the_author_meta('user_url')): ?><a href="<?php echo esc_url(get_the_author_meta('user_url')); ?>" class="text-gray-500 hover:text-red-600"><i class="fas fa-globe"></i></a><?php endif; ?>
-                </div>
-            </div>
             <!-- Comments Section -->
             <div class="bg-white rounded-xl shadow-md p-6 mb-8">
                 <?php if ( comments_open() || get_comments_number() ) : ?>
